@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+</head>
+
+<script>
+  var fun = function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+
+        //这里是假设在375px宽度设计稿的情况下，1rem = 100px；
+        //可以根据实际需要修改
+        docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+      };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+  }
+
+  if ( //移动端不限制
+    /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) ||
+    /(Android)/i.test(navigator.userAgent)
+  ) {
+    fun(document, window);
+  }
+</script>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
